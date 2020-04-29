@@ -1,34 +1,37 @@
 const express = require('express');
 const app = new express();
-const sql = require('mssql'); //Libreria per la connessione al dbms MSSQL
-//Oggetto di connessione al DB
+const sql = require('mssql');
+
+const CC = require('./CoordConverter.js');
+const coordConverter = new CC();
+
+
 const config = {
  user: 'PCTO',
  password: 'xxx123#',
- server: "213.140.22.237", //Stringa di connessione
- database: 'Katmai', //(Nome del DB)
+ server: "213.140.22.237", 
+ database: 'Katmai', 
 }
 app.get('/', function (req, res) {
- //connect è un metodo della libreria mssql che vuole due parametri: la stringa di
- //connessione e una funzione di callback
+
  sql.connect(config, (err) => {
- if (err) console.log(err); // ... error check
- else makeSqlRequest(res); // Se la connessione va a buon fine esequo il metodo
+ if (err) console.log(err); 
+ else makeSqlRequest(res); 
  });
 });
-//makeSqlRequest esegue una query sul db, se la query va a buon fine viene richiamata la funzione di
-//callback che invoca il metodo sendQuery
+
 function makeSqlRequest(res) {
- let sqlRequest = new sql.Request(); //sqlRequest: oggetto che serve a eseguire le query
+ let sqlRequest = new sql.Request(); 
  let q = 'SELECT DISTINCT TOP (100) [GEOM].STAsText() FROM [Katmai].[dbo].[interventiMilano]';
- //eseguo la query e aspetto il risultato nella callback
+
  sqlRequest.query(q, (err, result) => {sendQueryResults(err,result,res)});
 }
 function sendQueryResults(err,result, res)
 {
- if (err) console.log(err); // ... error checks
- res.send(result.recordset); //Invio il risultato al Browser
+ if (err) console.log(err);
+ res.send(coordConverter.generateGeoJson(result.recordset)); 
 }
+
 app.listen(3000, function () {
  console.log('Example app listening on port 3000!');
 });
