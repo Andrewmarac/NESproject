@@ -5,6 +5,7 @@ const sql = require('mssql');
 const CC = require('./CoordConverter.js');
 const coordConverter = new CC();
 
+const sqlUtils = require('./SqlUtils.js');
 
 const config = {
  user: 'PCTO',
@@ -12,13 +13,12 @@ const config = {
  server: "213.140.22.237", 
  database: 'Katmai', 
 }
-app.get('/', function (req, res) {
-
- sql.connect(config, (err) => {
- if (err) console.log(err); 
- else makeSqlRequest(res); 
+app.get('/ci_vettore/:foglio', function (req, res) {
+    console.log(req.params.foglio);
+ //richiamo il metodo che ottiene l'elenco dei vettori energetici
+ sqlUtils.connect(req,res, sqlUtils.ciVettRequest);
  });
-});
+
 
 function makeSqlRequest(res) {
  let sqlRequest = new sql.Request(); 
