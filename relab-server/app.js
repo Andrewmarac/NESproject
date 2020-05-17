@@ -1,37 +1,25 @@
 const express = require('express');
 const app = new express();
-const sql = require('mssql');
+const cors = require('cors');
+app.use(new cors());
 
-const CC = require('./CoordConverter.js');
-const coordConverter = new CC();
 
-const sqlUtils = require('./SqlUtils.js');
+//Importo la classe per le chiamate al DB
+const sqlUtils = require('./SqlUtils.js'); 
 
-const config = {
- user: 'PCTO',
- password: 'xxx123#',
- server: "213.140.22.237", 
- database: 'Katmai', 
-}
+app.get('/', function (req, res) {
+   //Per connettermi al DB uso il metodo statico sqlUtils.connect
+   //Passo come parametro la funzione sqlUtils.makeSqlRequest che verrà lanciata 
+   //se la connessione al DB avrà successo  
+   sqlUtils.connect(req, res, sqlUtils.makeSqlRequest);
+});
 app.get('/ci_vettore/:foglio', function (req, res) {
     console.log(req.params.foglio);
- //richiamo il metodo che ottiene l'elenco dei vettori energetici
- sqlUtils.connect(req,res, sqlUtils.ciVettRequest);
+    //richiamo il metodo che ottiene l'elenco dei vettori energetici
+    sqlUtils.connect(req, res, sqlUtils.ciVettRequest);
  });
 
-
-function makeSqlRequest(res) {
- let sqlRequest = new sql.Request(); 
- let q = 'SELECT DISTINCT TOP (100) [GEOM].STAsText() FROM [Katmai].[dbo].[interventiMilano]';
-
- sqlRequest.query(q, (err, result) => {sendQueryResults(err,result,res)});
-}
-function sendQueryResults(err,result, res)
-{
- if (err) console.log(err);
- res.send(coordConverter.generateGeoJson(result.recordset)); 
-}
-
 app.listen(3000, function () {
- console.log('Example app listening on port 3000!');
+    console.log('Example app listening on port 3000!');
 });
+
