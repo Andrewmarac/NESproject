@@ -14,5 +14,40 @@ export class Marker {
  this.icon = { url: './assets/img/electricity.ico' };
  this.label = "";
  }
+ if(this.label.includes("Gasolio"))
+  {
+  this.icon = { url: './assets/img/fuel.ico' };
+  this.label = "";
+  }
+  if(this.label.includes("Teleriscaldamento"))
+  {
+  this.icon = { url: './assets/img/tele.ico' };
+  this.label = "";
+  }
+  if(this.label.includes("Olio"))
+  {
+  this.icon = { url: './assets/img/oil.ico' };
+  this.label = "";
+  }
+  if(this.label.includes("GPL"))
+  {
+  this.icon = { url: './assets/img/gpl.ico' };
+  this.label = "";
+  }
+  if(this.label.includes("Biomasse solide"))
+  {
+  this.icon = { url: './assets/img/bs.ico' };
+  this.label = "";
+  }
+  if(this.label.includes("Biomasse liquide"))
+  {
+  this.icon = { url: './assets/img/bl.ico' };
+  this.label = "";
+  }
+  if(this.label.includes("RSU"))
+  {
+  this.icon = { url: './assets/img/rsu.ico' };
+  this.label = "";
+  }
  }
 }

@@ -32,9 +32,9 @@ obsCiVett : Observable<Ci_vettore[]>;
  //Una volta che la pagina web è caricata, viene lanciato il metodo ngOnInit scarico i dati
  //dal server
  ngOnInit() {
- this.obsGeoData = this.http.get<GeoFeatureCollection>("https://3000-d7f1c5fa-bb36-417e-8de8-9df2d6e7978b.ws-eu01.gitpod.io/");
+ this.obsGeoData = this.http.get<GeoFeatureCollection>("https://3000-c2077a33-0ba0-42d7-93ff-76d798546076.ws-eu01.gitpod.io/");
  this.obsGeoData.subscribe(this.prepareData);
- this.obsCiVett = this.http.get<Ci_vettore[]>("https://3000-d7f1c5fa-bb36-417e-8de8-9df2d6e7978b.ws-eu01.gitpod.io/ci_vettore/90");
+ this.obsCiVett = this.http.get<Ci_vettore[]>("https://3000-c2077a33-0ba0-42d7-93ff-76d798546076.ws-eu01.gitpod.io/ci_vettore/90");
  this.obsCiVett.subscribe(this.prepareCiVettData);
  }
  styleFunc = (feature) => {
