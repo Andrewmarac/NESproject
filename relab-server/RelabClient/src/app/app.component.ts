@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
  //Una volta che la pagina web è caricata, viene lanciato il metodo ngOnInit scarico i dati
  //dal server
  ngOnInit() {
-    this.obsGeoData = this.http.get<GeoFeatureCollection>("https://3000-cc21cc65-fe63-4246-aa97-b11d2f591da6.ws-eu01.gitpod.io/");
+    this.obsGeoData = this.http.get<GeoFeatureCollection>("https://3000-a947fa98-8847-46ba-9da3-9fd0b683bc4d.ws-eu01.gitpod.io/");
     this.obsGeoData.subscribe(this.prepareData);
  }
  styleFunc = (feature) => {
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
  }
   cambiaFoglio(foglio) : boolean{
     let val = foglio.value; //Commenta qui
-    this.obsCiVett = this.http.get<Ci_vettore[]>(`https://3000-cc21cc65-fe63-4246-aa97-b11d2f591da6.ws-eu01.gitpod.io/ci_vettore/${val}`); //Commenta qui
+    this.obsCiVett = this.http.get<Ci_vettore[]>(`https://3000-a947fa98-8847-46ba-9da3-9fd0b683bc4d.ws-eu01.gitpod.io/ci_vettore/${val}`); //Commenta qui
     this.obsCiVett.subscribe(this.prepareCiVettData); //Commenta qui
     console.log(val);
     return false;
@@ -89,6 +89,16 @@ export class AppComponent implements OnInit {
  }
 
   circleDoubleClicked(circleCenter){
+    let raggioInGradi = (this.radius * 0.00001)/1.1132;
+//Posso riusare lo stesso observable e lo stesso metodo di gestione del metodo
+//cambiaFoglio poichè riceverò lo stesso tipo di dati
+//Divido l'url andando a capo per questioni di leggibilità non perchè sia necessario
+ this.obsCiVett = this.http.get<Ci_vettore[]>(`https://3000-a947fa98-8847-46ba-9da3-9fd0b683bc4d.ws-eu01.gitpod.io/ci_geovettore/
+ ${this.circleLat}/
+ ${this.circleLng}/
+ ${raggioInGradi}`);
+ this.obsCiVett.subscribe(this.prepareCiVettData);
+
     console.log(circleCenter); //Voglio ottenere solo i valori entro questo cerchio
     console.log(this.radius);
     this.circleLat = circleCenter.coords.lat; //Aggiorno le coordinate del cerchio
