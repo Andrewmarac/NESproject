@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
  //Una volta che la pagina web è caricata, viene lanciato il metodo ngOnInit scarico i dati
  //dal server
  ngOnInit() {
-    this.obsGeoData = this.http.get<GeoFeatureCollection>("https://3000-b4962e81-0893-4b66-a924-7be9a26dde13.ws-eu01.gitpod.io/");
+    this.obsGeoData = this.http.get<GeoFeatureCollection>("https://3000-cc21cc65-fe63-4246-aa97-b11d2f591da6.ws-eu01.gitpod.io/");
     this.obsGeoData.subscribe(this.prepareData);
  }
  styleFunc = (feature) => {
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
  }
   cambiaFoglio(foglio) : boolean{
     let val = foglio.value; //Commenta qui
-    this.obsCiVett = this.http.get<Ci_vettore[]>(`https://3000-b4962e81-0893-4b66-a924-7be9a26dde13.ws-eu01.gitpod.io/ci_vettore/${val}`); //Commenta qui
+    this.obsCiVett = this.http.get<Ci_vettore[]>(`https://3000-cc21cc65-fe63-4246-aa97-b11d2f591da6.ws-eu01.gitpod.io/ci_vettore/${val}`); //Commenta qui
     this.obsCiVett.subscribe(this.prepareCiVettData); //Commenta qui
     console.log(val);
     return false;
