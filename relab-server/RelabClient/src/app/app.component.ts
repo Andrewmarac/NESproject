@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
  //Una volta che la pagina web è caricata, viene lanciato il metodo ngOnInit scarico i dati
  //dal server
  ngOnInit() {
-    this.obsGeoData = this.http.get<GeoFeatureCollection>("https://3000-a947fa98-8847-46ba-9da3-9fd0b683bc4d.ws-eu01.gitpod.io/");
+    this.obsGeoData = this.http.get<GeoFeatureCollection>("https://3000-d9051644-189a-431d-88f5-d02c3fd95426.ws-eu01.gitpod.io/");
     this.obsGeoData.subscribe(this.prepareData);
  }
  styleFunc = (feature) => {
@@ -49,9 +49,9 @@ export class AppComponent implements OnInit {
  });
  }
   cambiaFoglio(foglio) : boolean{
-    let val = foglio.value; //Commenta qui
-    this.obsCiVett = this.http.get<Ci_vettore[]>(`https://3000-a947fa98-8847-46ba-9da3-9fd0b683bc4d.ws-eu01.gitpod.io/ci_vettore/${val}`); //Commenta qui
-    this.obsCiVett.subscribe(this.prepareCiVettData); //Commenta qui
+    let val = foglio.value; // contera il valore del nuovo foglio
+    this.obsCiVett = this.http.get<Ci_vettore[]>(`https://3000-d9051644-189a-431d-88f5-d02c3fd95426.ws-eu01.gitpod.io/ci_vettore/${val}`); //prende l'url tramite http get con il valore che mettiamo in input
+    this.obsCiVett.subscribe(this.prepareCiVettData); //sottoscrivo all'observable
     console.log(val);
     return false;
   }
@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
       lngTot += m.lng;
       this.markers.push(m);
     }
-    this.lng = lngTot/data.length; //Commenta qui
+    this.lng = lngTot/data.length; //?
     this.lat = latTot/data.length;
     this.zoom = 16;
   }
@@ -93,7 +93,7 @@ export class AppComponent implements OnInit {
 //Posso riusare lo stesso observable e lo stesso metodo di gestione del metodo
 //cambiaFoglio poichè riceverò lo stesso tipo di dati
 //Divido l'url andando a capo per questioni di leggibilità non perchè sia necessario
- this.obsCiVett = this.http.get<Ci_vettore[]>(`https://3000-a947fa98-8847-46ba-9da3-9fd0b683bc4d.ws-eu01.gitpod.io/ci_geovettore/
+ this.obsCiVett = this.http.get<Ci_vettore[]>(`https://3000-d9051644-189a-431d-88f5-d02c3fd95426.ws-eu01.gitpod.io/ci_geovettore/
  ${this.circleLat}/
  ${this.circleLng}/
  ${raggioInGradi}`);
